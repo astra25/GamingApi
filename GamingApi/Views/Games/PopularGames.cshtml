@@ -1,0 +1,46 @@
+﻿@model IEnumerable<GamingApi.ViewModels.GameViewModel>
+
+@{
+    ViewData["Title"] = "Popular Games";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var game in Model) 
+    {
+        <tr>
+            <td>
+                @Html.DisplayName(game.Name)
+                <img src="@Url.Content(game.CoverArt)" alt="Cover Art" />
+            </td>
+            <td>
+                @if (game.Review != null)
+                {
+                    await Html.RenderPartialAsync("_Review", game.Review);
+                }
+                else
+                {
+                    @:"No Reviews Found"
+                }
+
+                @if (game.Streams != null && game.Streams.Any())
+                {
+                    @foreach (var stream in game.Streams)
+                    {
+                        await Html.RenderPartialAsync("_Stream", stream);
+                    }
+                }
+                else
+                {
+                    @:"No Live Streams Found"
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

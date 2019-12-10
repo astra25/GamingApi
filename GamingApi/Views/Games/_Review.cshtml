@@ -1,0 +1,56 @@
+﻿@model GamingApi.ViewModels.ReviewViewModel
+
+<div>
+    <h4>Review</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CriticsRating)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CriticsRating)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CriticsRatingCount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CriticsRatingCount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserRating)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserRating)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserRatingCount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserRatingCount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalRating)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TotalRating)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalRatingCount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TotalRatingCount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Summary)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Summary)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.GameUrl)
+        </dt>
+        <dd class = "col-sm-10">
+            <a href="@Model.GameUrl">IGDB Link</a>
+        </dd>
+    </dl>
+</div>
