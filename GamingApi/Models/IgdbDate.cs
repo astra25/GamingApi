@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace GamingApi.Models
 {
@@ -8,7 +7,10 @@ namespace GamingApi.Models
         [JsonPropertyName("id")]
         public int Id { get; set; }
 
-        [JsonPropertyName("date")]
-        public int Date { get; set; }
+        [JsonPropertyName("human")]
+        public string Date { get; set; }
+
+        [JsonPropertyName("platform")]
+        public IgdbName Platform { get; set; }
     }
 }

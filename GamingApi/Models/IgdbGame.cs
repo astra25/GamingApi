@@ -24,9 +24,6 @@ namespace GamingApi.Models
         [JsonPropertyName("cover")]
         public IgdbImage Cover { get; set; }
 
-        [JsonPropertyName("first_release_date")]
-        public int FirstReleaseDate { get; set; }
-
         [JsonPropertyName("game_modes")]
         public List<IgdbName> GameModes { get; set; }
 
@@ -35,9 +32,6 @@ namespace GamingApi.Models
 
         [JsonPropertyName("name")]
         public string Name { get; set; }
-
-        [JsonPropertyName("platforms")]
-        public List<IgdbName> Platforms { get; set; }
 
         [JsonPropertyName("popularity")]
         public double Popularity { get; set; }

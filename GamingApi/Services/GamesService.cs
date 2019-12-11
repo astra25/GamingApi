@@ -24,14 +24,14 @@ namespace GamingApi.Services
             _cache = cache;
         }
 
-        public async Task<List<GameViewModel>> GetPopularGamesAsync()
+        public async Task<List<GameViewModel>> GetHighestRatedGamesAsync()
         {
             try
             {
                 var cacheEntry = await _cache.GetOrCreateAsync("popular-games", async entry =>
                 {
                     entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(60);
-                    return await GetLivePopularGamesAsync();
+                    return await GetLiveHighestRatedGamesAsync();
                 });
 
                 return cacheEntry;
@@ -62,14 +62,14 @@ namespace GamingApi.Services
             }
         }
 
-        private async Task<List<GameViewModel>> GetLivePopularGamesAsync()
+        private async Task<List<GameViewModel>> GetLiveHighestRatedGamesAsync()
         {
             var popularGamesView = new List<GameViewModel>();
-            var popularGames = await _igdbClient.GetPopularGamesAsync();
+            var popularGames = await _igdbClient.GetHighestRatedGamesAsync();
 
             if (popularGames != null && popularGames.Any())
             {
-                foreach (var game in popularGames)
+                await popularGames.ForEachAsync(10, async game =>
                 {
                     var coverArt = $"//images.igdb.com/igdb/image/upload/t_cover_big/{game.Cover?.ImageId}.jpg";
                     var gameViewModel = new GameViewModel(game.Name, coverArt);
@@ -92,7 +92,7 @@ namespace GamingApi.Services
                     }
 
                     popularGamesView.Add(gameViewModel);
-                }
+                });
             }
 
             return popularGamesView;
@@ -105,7 +105,7 @@ namespace GamingApi.Services
 
             if (topGames != null && topGames.Data.Any())
             {
-                foreach (var game in topGames.Data)
+                await topGames.Data.ForEachAsync(10, async game =>
                 {
                     var coverArt = game.BoxArtUrl.Replace("{width}x{height}", "285x380");
                     var gameViewModel = new GameViewModel(game.Name, coverArt);
@@ -129,7 +129,7 @@ namespace GamingApi.Services
                     }
 
                     topGamesView.Add(gameViewModel);
-                }
+                });
             }
 
             return topGamesView;

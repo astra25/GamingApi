@@ -6,7 +6,7 @@ namespace GamingApi.Interfaces
 {
     public interface IGamesService
     {
-        Task<List<GameViewModel>> GetPopularGamesAsync();
+        Task<List<GameViewModel>> GetHighestRatedGamesAsync();
         Task<List<GameViewModel>> GetTopGamesAsync();
     }
 }

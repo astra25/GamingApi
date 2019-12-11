@@ -6,7 +6,7 @@ namespace GamingApi.Interfaces
 {
     public interface IIgdbClient
     {
-        Task<List<IgdbGame>> GetPopularGamesAsync();
+        Task<List<IgdbGame>> GetHighestRatedGamesAsync();
         Task<List<IgdbGame>> GetGameByNameAsync(string name);
     }
 }

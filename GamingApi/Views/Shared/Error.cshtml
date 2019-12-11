@@ -1,4 +1,4 @@
-﻿@model ErrorViewModel
+﻿@model GamingApi.ViewModels.ErrorViewModel
 @{
     ViewData["Title"] = "Error";
 }
@@ -10,6 +10,7 @@
 {
     <p>
         <strong>Request ID:</strong> <code>@Model.RequestId</code>
+        <strong>Error Message:</strong> <em>@Model.ErrorMessage</em>
     </p>
 }
 

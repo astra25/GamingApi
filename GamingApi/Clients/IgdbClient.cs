@@ -25,17 +25,17 @@ namespace GamingApi.Clients
             _httpClient.DefaultRequestHeaders.Add("user-key", config["IgdbUserKey"]);
         }
 
-        public async Task<List<IgdbGame>> GetPopularGamesAsync()
+        public async Task<List<IgdbGame>> GetHighestRatedGamesAsync()
         {
             try
             {
                 var feedUrl = new Uri($"/games", UriKind.Relative);
 
-                var bodyText = @"fields id, aggregated_rating, aggregated_rating_count, alternative_names.name, category, cover.image_id, 
-                                first_release_date, game_modes.name, genres.name, name, platforms.name, popularity, rating, rating_count, 
-                                release_dates.date, slug, storyline, summary, total_rating, total_rating_count, url;
-                                sort popularity desc;
-                                where platforms = (6,48,49,130) & category = 0 & total_rating > 75 & themes != (42);";
+                var bodyText = @"fields id, aggregated_rating, aggregated_rating_count, alternative_names.name, category, cover.image_id,
+                                game_modes.name, genres.name, name, popularity, rating, rating_count, release_dates.human,
+                                release_dates.platform.name, slug, storyline, summary, total_rating, total_rating_count, url;
+                                sort first_release_date desc;
+                                where platforms = (6,48,49) & category = 0 & aggregated_rating > 75 & aggregated_rating_count > 4 & themes != (42);";
 
                 var body = new StringContent(bodyText, Encoding.UTF8, "application/json");
                 var response = await _httpClient.PostAsync(feedUrl, body);
@@ -57,8 +57,8 @@ namespace GamingApi.Clients
                 var feedUrl = new Uri($"/games", UriKind.Relative);
 
                 var bodyText = @"fields id, aggregated_rating, aggregated_rating_count, alternative_names.name, category, cover.image_id, 
-                                first_release_date, game_modes.name, genres.name, name, platforms.name, popularity, rating, rating_count, 
-                                release_dates.date, slug, storyline, summary, total_rating, total_rating_count, url;
+                                game_modes.name, genres.name, name, popularity, rating, rating_count, release_dates.human,
+                                release_dates.platform.name, slug, storyline, summary, total_rating, total_rating_count, url;
                                 where name ~ " + $"\"{name}\";";
 
                 var body = new StringContent(bodyText, Encoding.UTF8, "application/json");

@@ -9,7 +9,7 @@ namespace GamingApi.ViewModels
     {
         public string Name { get; set; }
 
-        public double CriticsRating { get; set; }
+        public string CriticsRating { get; set; }
 
         public int CriticsRatingCount { get; set; }
 
@@ -19,15 +19,15 @@ namespace GamingApi.ViewModels
 
         public List<string> Platforms { get; set; }
 
-        public double UserRating { get; set; }
+        public string UserRating { get; set; }
 
         public int UserRatingCount { get; set; }
 
-        public double TotalRating { get; set; }
+        public string TotalRating { get; set; }
 
         public int TotalRatingCount { get; set; }
 
-        public List<DateTime> ReleaseDates { get; set; }
+        public List<ReleaseDate> ReleaseDates { get; set; }
 
         public string Summary { get; set; }
 
@@ -40,18 +40,23 @@ namespace GamingApi.ViewModels
 
         public ReviewViewModel(IgdbGame model)
         {
-            CriticsRating = model.AggregatedRating;
+            CriticsRating = string.Format("{0:0.00}", model.AggregatedRating);
             CriticsRatingCount = model.AggregatedRatingCount;
             GameModes = model.GameModes?.Select(x => x.Name).ToList() ?? new List<string>();
             Genres = model.Genres?.Select(x => x.Name).ToList() ?? new List<string>();
-            Platforms = model.Platforms?.Select(x => x.Name).ToList() ?? new List<string>();
-            UserRating = model.Rating;
+            UserRating = string.Format("{0:0.00}", model.Rating);
             UserRatingCount = model.RatingCount;
-            TotalRating = model.TotalRating;
+            TotalRating = string.Format("{0:0.00}", model.TotalRating);
             TotalRatingCount = model.TotalRatingCount;
-            ReleaseDates = model.ReleaseDates?.Select(x => DateTimeOffset.FromUnixTimeSeconds(x.Date).UtcDateTime).ToList() ?? new List<DateTime>();
+            ReleaseDates = model.ReleaseDates?.Select(x => new ReleaseDate { Date = x.Date, Platform = x.Platform?.Name }).ToList() ?? new List<ReleaseDate>();
             Summary = model.Summary;
             GameUrl = model.Url;
         }
+    }
+
+    public class ReleaseDate
+    {
+        public string Date { get; set; }
+        public string Platform { get; set; }
     }
 }

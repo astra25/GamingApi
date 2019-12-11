@@ -17,18 +17,18 @@ namespace GamingApi.Controllers
             _gamesService = gamesService;
         }
 
-        // GET: PopularGames
-        public async Task<IActionResult> PopularGames()
+        // GET: HighestRatedGames
+        public async Task<IActionResult> HighestRatedGames()
         {
             try
             {
-                var popularGames = await _gamesService.GetPopularGamesAsync();
+                var popularGames = await _gamesService.GetHighestRatedGamesAsync();
                 return View(popularGames);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error in PopularGames with message: {ex.Message}");
-                return NotFound();
+                _logger.LogError($"Error in HighestRatedGames with message: {ex.Message}");
+                return RedirectToAction("Error", "Home", new { errorMessage = ex.Message });
             }
         }
 
@@ -43,7 +43,7 @@ namespace GamingApi.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Error in TopGames with message: {ex.Message}");
-                return NotFound();
+                return RedirectToAction("Error", "Home", new { errorMessage = ex.Message });
             }
         }
     }
